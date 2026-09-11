@@ -1,963 +1,1579 @@
 <!DOCTYPE html>
-<html lang="bn">
-
+<html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Wall Magazine | Digital Library</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family:
-                "Noto Sans Bengali",
-                "Nirmala UI",
-                Arial,
-                sans-serif;
-
-            background:
-                linear-gradient(135deg, #f8f5ff, #eef6ff);
-
-            color: #1f2937;
-
-            min-height: 100vh;
-        }
-
-
-        /* =========================
-           HEADER
-        ========================== */
-
-        .hero {
-            position: relative;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #312e81,
-                    #4f46e5,
-                    #7c3aed
-                );
-
-            color: white;
-
-            padding: 65px 20px 75px;
-
-            text-align: center;
-
-            overflow: hidden;
-        }
-
-
-        .hero::before {
-            content: "";
-
-            position: absolute;
-
-            width: 350px;
-            height: 350px;
-
-            border-radius: 50%;
-
-            background: rgba(255,255,255,0.08);
-
-            top: -180px;
-            left: -100px;
-        }
-
-
-        .hero::after {
-            content: "";
-
-            position: absolute;
-
-            width: 300px;
-            height: 300px;
-
-            border-radius: 50%;
-
-            background: rgba(255,255,255,0.08);
-
-            bottom: -170px;
-            right: -80px;
-        }
-
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-
-            max-width: 800px;
-
-            margin: auto;
-        }
-
-
-        .logo {
-            width: 75px;
-            height: 75px;
-
-            margin: 0 auto 20px;
-
-            border-radius: 22px;
-
-            background: rgba(255,255,255,0.15);
-
-            border: 1px solid rgba(255,255,255,0.25);
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            font-size: 38px;
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.15);
-        }
-
-
-        .hero h1 {
-            font-size: 42px;
-
-            font-weight: 800;
-
-            letter-spacing: -1px;
-
-            margin-bottom: 10px;
-        }
-
-
-        .hero p {
-            font-size: 17px;
-
-            opacity: 0.9;
-
-            margin-bottom: 25px;
-        }
-
-
-        .hero-badge {
-            display: inline-block;
-
-            padding: 8px 18px;
-
-            border-radius: 50px;
-
-            background: rgba(255,255,255,0.14);
-
-            border: 1px solid rgba(255,255,255,0.2);
-
-            font-size: 13px;
-
-            backdrop-filter: blur(10px);
-        }
-
-
-        /* =========================
-           MAIN
-        ========================== */
-
-        .container {
-
-            max-width: 1050px;
-
-            margin: -35px auto 0;
-
-            padding: 0 20px 50px;
-
-            position: relative;
-
-            z-index: 5;
-        }
-
-
-        /* =========================
-           STATS BOX
-        ========================== */
-
-        .stats-card {
-
-            background: rgba(255,255,255,0.95);
-
-            border-radius: 18px;
-
-            padding: 20px 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            box-shadow:
-                0 15px 40px rgba(31,41,55,0.12);
-
-            margin-bottom: 35px;
-
-            border: 1px solid rgba(255,255,255,0.8);
-        }
-
-
-        .stats-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-
-        .stats-icon {
-
-            width: 48px;
-            height: 48px;
-
-            border-radius: 14px;
-
-            background: #eef2ff;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            font-size: 23px;
-        }
-
-
-        .stats-title {
-
-            font-size: 14px;
-
-            color: #6b7280;
-
-            margin-bottom: 2px;
-        }
-
-
-        .stats-number {
-
-            font-size: 22px;
-
-            font-weight: 800;
-
-            color: #312e81;
-        }
-
-
-        .online {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            font-size: 13px;
-
-            color: #16a34a;
-        }
-
-
-        .online-dot {
-
-            width: 8px;
-            height: 8px;
-
-            border-radius: 50%;
-
-            background: #22c55e;
-
-            box-shadow:
-                0 0 0 4px rgba(34,197,94,0.12);
-        }
-
-
-        /* =========================
-           SECTION HEADER
-        ========================== */
-
-        .section-header {
-
-            margin-bottom: 20px;
-        }
-
-
-        .section-header h2 {
-
-            font-size: 28px;
-
-            font-weight: 800;
-
-            color: #111827;
-
-            margin-bottom: 5px;
-        }
-
-
-        .section-header p {
-
-            color: #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           ARTICLE GRID
-        ========================== */
-
-        .articles-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 22px;
-        }
-
-
-        /* =========================
-           ARTICLE CARD
-        ========================== */
-
-        .article-card {
-
-            background: white;
-
-            border-radius: 20px;
-
-            padding: 25px;
-
-            border: 1px solid #e5e7eb;
-
-            box-shadow:
-                0 8px 25px rgba(31,41,55,0.07);
-
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-
-            display: flex;
-
-            flex-direction: column;
-        }
-
-
-        .article-card:hover {
-
-            transform: translateY(-5px);
-
-            box-shadow:
-                0 18px 40px rgba(31,41,55,0.13);
-        }
-
-
-        /* ARTICLE TOP */
-
-        .article-top {
-
-            display: flex;
-
-            align-items: flex-start;
-
-            gap: 15px;
-
-            margin-bottom: 17px;
-        }
-
-
-        .article-icon {
-
-            min-width: 50px;
-
-            width: 50px;
-            height: 50px;
-
-            border-radius: 15px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #ede9fe,
-                    #e0e7ff
-                );
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            font-size: 23px;
-        }
-
-
-        .article-title {
-
-            font-size: 19px;
-
-            font-weight: 750;
-
-            line-height: 1.4;
-
-            color: #111827;
-
-            word-break: break-word;
-        }
-
-
-        .article-tag {
-
-            display: inline-block;
-
-            margin-top: 6px;
-
-            padding: 4px 10px;
-
-            border-radius: 20px;
-
-            background: #f3f4f6;
-
-            color: #6b7280;
-
-            font-size: 11px;
-        }
-
-
-        /* ARTICLE TEXT */
-
-        .article-text {
-
-            color: #4b5563;
-
-            font-size: 14px;
-
-            line-height: 1.9;
-
-            white-space: pre-line;
-
-            max-height: 210px;
-
-            overflow-y: auto;
-
-            padding-right: 8px;
-
-            margin-bottom: 20px;
-        }
-
-
-        /* SCROLLBAR */
-
-        .article-text::-webkit-scrollbar {
-
-            width: 5px;
-        }
-
-
-        .article-text::-webkit-scrollbar-track {
-
-            background: #f3f4f6;
-
-            border-radius: 10px;
-        }
-
-
-        .article-text::-webkit-scrollbar-thumb {
-
-            background: #c7d2fe;
-
-            border-radius: 10px;
-        }
-
-
-        /* =========================
-           AUDIO AREA
-        ========================== */
-
-        .audio-box {
-
-            margin-top: auto;
-
-            background: #f8f7ff;
-
-            border: 1px solid #e9e7ff;
-
-            border-radius: 14px;
-
-            padding: 14px;
-        }
-
-
-        .audio-heading {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            color: #4338ca;
-
-            margin-bottom: 9px;
-        }
-
-
-        audio {
-
-            width: 100%;
-
-            height: 40px;
-        }
-
-
-        /* =========================
-           NO AUDIO
-        ========================== */
-
-        .no-audio {
-
-            background: #fff7ed;
-
-            border: 1px solid #fed7aa;
-
-            color: #9a3412;
-
-            padding: 12px;
-
-            border-radius: 12px;
-
-            font-size: 13px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =========================
-           EMPTY STATE
-        ========================== */
-
-        .no-articles {
-
-            background: white;
-
-            padding: 55px 25px;
-
-            text-align: center;
-
-            border-radius: 20px;
-
-            box-shadow:
-                0 10px 30px rgba(0,0,0,0.07);
-        }
-
-
-        .empty-icon {
-
-            font-size: 50px;
-
-            margin-bottom: 15px;
-        }
-
-
-        .no-articles h3 {
-
-            font-size: 22px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .no-articles p {
-
-            color: #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================== */
-
-        footer {
-
-            text-align: center;
-
-            padding: 30px 20px;
-
-            color: #9ca3af;
-
-            font-size: 13px;
-        }
-
-
-        footer strong {
-
-            color: #6366f1;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================== */
-
-        @media (max-width: 750px) {
-
-            .hero {
-
-                padding: 50px 18px 65px;
-            }
-
-
-            .hero h1 {
-
-                font-size: 32px;
-            }
-
-
-            .hero p {
-
-                font-size: 14px;
-            }
-
-
-            .container {
-
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-
-
-            .stats-card {
-
-                padding: 17px;
-
-            }
-
-
-            .online {
-
-                display: none;
-            }
-
-
-            .articles-grid {
-
-                grid-template-columns: 1fr;
-
-                gap: 17px;
-            }
-
-
-            .section-header h2 {
-
-                font-size: 24px;
-            }
-
-
-            .article-card {
-
-                padding: 20px;
-            }
-
-
-            .article-title {
-
-                font-size: 18px;
-            }
-
-
-            .article-text {
-
-                font-size: 14px;
-
-                max-height: 230px;
-            }
-
-        }
-
-
-        @media (max-width: 400px) {
-
-            .hero h1 {
-
-                font-size: 28px;
-            }
-
-
-            .logo {
-
-                width: 65px;
-                height: 65px;
-
-                font-size: 32px;
-            }
-
-
-            .article-card {
-
-                padding: 17px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Wall Magazine | George College</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#05030d;
+    --bg2:#0b0718;
+    --text:#f8f7ff;
+    --muted:#a8a3bd;
+    --purple:#9b5cff;
+    --pink:#ff4fd8;
+    --blue:#4cc9ff;
+    --glass:rgba(255,255,255,.055);
+    --border:rgba(255,255,255,.12);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(155,92,255,.13),transparent 28%),
+        radial-gradient(circle at 80% 30%,rgba(76,201,255,.10),transparent 25%),
+        radial-gradient(circle at 50% 90%,rgba(255,79,216,.08),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+/* ================= PARTICLES ================= */
+
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    pointer-events:none;
+}
+
+.grid-bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:.16;
+    background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:55px 55px;
+    mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+/* ================= CURSOR GLOW ================= */
+
+.cursor-glow{
+    position:fixed;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+    background:radial-gradient(circle,
+        rgba(155,92,255,.12),
+        rgba(155,92,255,.04) 35%,
+        transparent 70%);
+    transform:translate(-50%,-50%);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    padding:40px 20px;
+}
+
+.hero-inner{
+    text-align:center;
+    max-width:1050px;
+    position:relative;
+    z-index:2;
+}
+
+.college-name{
+    font-size:13px;
+    letter-spacing:5px;
+    color:#c8c2d9;
+    font-weight:600;
+    margin-bottom:28px;
+    animation:fadeUp 1s ease both;
+}
+
+.college-name span{
+    color:#a86cff;
+}
+
+.hero-title{
+    font-size:clamp(50px,9vw,125px);
+    line-height:.86;
+    font-weight:900;
+    letter-spacing:-6px;
+    background:linear-gradient(
+        110deg,
+        #fff,
+        #d8c4ff,
+        #9b5cff,
+        #ff75dd,
+        #fff
+    );
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:
+        titleGlow 7s linear infinite,
+        fadeUp 1s .15s ease both;
+}
+
+.hero-subtitle{
+    margin-top:32px;
+    font-size:clamp(18px,2vw,25px);
+    letter-spacing:2px;
+    color:#d7d2e5;
+    animation:fadeUp 1s .3s ease both;
+}
+
+.hero-tag{
+    margin:15px auto 0;
+    color:#918aa8;
+    font-size:14px;
+    animation:fadeUp 1s .4s ease both;
+}
+
+/* ================= AUDIO CORE ================= */
+
+.audio-core{
+    width:240px;
+    height:240px;
+    margin:55px auto 45px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:fadeUp 1s .45s ease both;
+}
+
+.core-circle{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 35% 30%,#d7baff,#8e4fff 45%,#36136e);
+    box-shadow:
+        0 0 35px rgba(155,92,255,.7),
+        0 0 90px rgba(155,92,255,.3),
+        inset 0 0 30px rgba(255,255,255,.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:43px;
+    position:relative;
+    z-index:4;
+    animation:corePulse 2.4s ease-in-out infinite;
+}
+
+.orbit{
+    position:absolute;
+    border:1px solid rgba(174,121,255,.35);
+    border-radius:50%;
+}
+
+.orbit.one{
+    width:155px;
+    height:155px;
+    animation:orbit 7s linear infinite;
+}
+
+.orbit.two{
+    width:205px;
+    height:205px;
+    border-color:rgba(76,201,255,.22);
+    animation:orbitReverse 11s linear infinite;
+}
+
+.orbit.three{
+    width:240px;
+    height:240px;
+    border-color:rgba(255,79,216,.16);
+    animation:orbit 15s linear infinite;
+}
+
+.orbit::after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 15px #fff,0 0 30px #9b5cff;
+    top:-4px;
+    left:50%;
+}
+
+/* ================= CTA ================= */
+
+.enter-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:13px;
+    padding:17px 31px;
+    border-radius:50px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    letter-spacing:1.5px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 35px rgba(155,92,255,.13);
+    transition:.4s;
+    animation:fadeUp 1s .6s ease both;
+}
+
+.enter-btn:hover{
+    transform:translateY(-5px) scale(1.04);
+    background:rgba(155,92,255,.16);
+    box-shadow:
+        0 0 25px rgba(155,92,255,.35),
+        0 0 70px rgba(155,92,255,.15);
+}
+
+.arrow{
+    font-size:20px;
+    transition:.3s;
+}
+
+.enter-btn:hover .arrow{
+    transform:translateY(4px);
+}
+
+/* ================= SCROLL INDICATOR ================= */
+
+.scroll-indicator{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#777087;
+    font-size:10px;
+    letter-spacing:4px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+}
+
+.scroll-line{
+    width:1px;
+    height:35px;
+    background:linear-gradient(#9b5cff,transparent);
+    animation:scrollPulse 1.7s infinite;
+}
+
+/* ================= MAGAZINE ================= */
+
+.magazine{
+    position:relative;
+    padding:120px 6vw 150px;
+}
+
+.section-top{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:30px;
+    margin-bottom:55px;
+}
+
+.section-label{
+    font-size:11px;
+    letter-spacing:4px;
+    color:#a66cff;
+    margin-bottom:13px;
+}
+
+.section-title{
+    font-size:clamp(35px,5vw,65px);
+    font-weight:850;
+    letter-spacing:-2px;
+}
+
+.section-desc{
+    color:#8e899e;
+    max-width:400px;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* ================= CONTROLS ================= */
+
+.controls{
+    max-width:1200px;
+    margin:0 auto 45px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.search{
+    flex:1;
+    min-width:240px;
+    background:rgba(255,255,255,.045);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px 20px;
+    color:white;
+    outline:none;
+    backdrop-filter:blur(15px);
+    transition:.3s;
+}
+
+.search::placeholder{
+    color:#777287;
+}
+
+.search:focus{
+    border-color:#9b5cff;
+    box-shadow:0 0 25px rgba(155,92,255,.12);
+}
+
+.filter{
+    border:1px solid var(--border);
+    color:#aaa3b9;
+    background:rgba(255,255,255,.045);
+    padding:0 18px;
+    border-radius:14px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.filter:hover,
+.filter.active{
+    color:white;
+    background:rgba(155,92,255,.18);
+    border-color:rgba(155,92,255,.5);
+}
+
+/* ================= ARTICLE GRID ================= */
+
+.article-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.article-card{
+    position:relative;
+    padding:32px;
+    min-height:420px;
+    overflow:hidden;
+    border-radius:28px;
+    background:
+        linear-gradient(145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025));
+    border:1px solid rgba(255,255,255,.10);
+    backdrop-filter:blur(20px);
+    transform-style:preserve-3d;
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        border .3s,
+        box-shadow .3s;
+    opacity:0;
+    transform:translateY(50px);
+}
+
+.article-card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.article-card:hover{
+    border-color:rgba(170,110,255,.42);
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.35),
+        0 0 45px rgba(155,92,255,.09);
+}
+
+.article-card::before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(155,92,255,.12),transparent 70%);
+    top:-100px;
+    right:-80px;
+    pointer-events:none;
+}
+
+.number{
+    font-size:76px;
+    line-height:1;
+    font-weight:900;
+    color:rgba(255,255,255,.045);
+    position:absolute;
+    top:15px;
+    right:25px;
+}
+
+.language{
+    display:inline-flex;
+    padding:7px 11px;
+    border-radius:30px;
+    background:rgba(155,92,255,.11);
+    border:1px solid rgba(155,92,255,.2);
+    color:#c6a5ff;
+    font-size:10px;
+    letter-spacing:1.5px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.article-title{
+    position:relative;
+    font-size:25px;
+    line-height:1.25;
+    max-width:85%;
+    margin-bottom:18px;
+}
+
+.article-text{
+    position:relative;
+    color:#aaa5b7;
+    line-height:1.8;
+    font-size:14px;
+    max-height:170px;
+    overflow:hidden;
+    white-space:pre-line;
+    transition:max-height .6s ease;
+}
+
+.article-text.expanded{
+    max-height:2000px;
+}
+
+.fade{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:75px;
+    background:linear-gradient(transparent,rgba(10,7,22,.95));
+    pointer-events:none;
+}
+
+.read-btn{
+    position:relative;
+    margin-top:15px;
+    background:none;
+    border:0;
+    color:#bc91ff;
+    cursor:pointer;
+    font-weight:700;
+    font-size:12px;
+}
+
+/* ================= AUDIO ================= */
+
+.audio-area{
+    position:relative;
+    margin-top:27px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.play-btn{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    background:linear-gradient(135deg,#9b5cff,#6840c5);
+    color:white;
+    cursor:pointer;
+    font-size:17px;
+    box-shadow:0 0 25px rgba(155,92,255,.28);
+    flex-shrink:0;
+    transition:.3s;
+}
+
+.play-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 35px rgba(155,92,255,.5);
+}
+
+.audio-info{
+    flex:1;
+    min-width:0;
+}
+
+.audio-label{
+    font-size:10px;
+    letter-spacing:2px;
+    color:#777187;
+    margin-bottom:8px;
+}
+
+.wave{
+    height:27px;
+    display:flex;
+    align-items:center;
+    gap:3px;
+}
+
+.wave i{
+    display:block;
+    width:3px;
+    height:5px;
+    border-radius:5px;
+    background:linear-gradient(to top,#8c4fff,#e49cff);
+    transition:.3s;
+}
+
+.wave.playing i{
+    animation:wave .8s ease-in-out infinite alternate;
+}
+
+.wave i:nth-child(2){animation-delay:.1s}
+.wave i:nth-child(3){animation-delay:.2s}
+.wave i:nth-child(4){animation-delay:.3s}
+.wave i:nth-child(5){animation-delay:.15s}
+.wave i:nth-child(6){animation-delay:.25s}
+.wave i:nth-child(7){animation-delay:.35s}
+.wave i:nth-child(8){animation-delay:.1s}
+.wave i:nth-child(9){animation-delay:.3s}
+.wave i:nth-child(10){animation-delay:.2s}
+.wave i:nth-child(11){animation-delay:.4s}
+.wave i:nth-child(12){animation-delay:.25s}
+
+.audio-time{
+    font-size:10px;
+    color:#706b7c;
+    white-space:nowrap;
+}
+
+/* ================= FLOATING PLAYER ================= */
+
+.floating-player{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,130px);
+    width:min(650px,calc(100% - 30px));
+    z-index:100;
+    padding:13px 18px;
+    border-radius:22px;
+    background:rgba(13,9,27,.82);
+    border:1px solid rgba(177,121,255,.25);
+    backdrop-filter:blur(25px);
+    box-shadow:0 20px 70px rgba(0,0,0,.5);
+    display:flex;
+    align-items:center;
+    gap:14px;
+    transition:.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.floating-player.active{
+    transform:translate(-50%,0);
+}
+
+.mini-disc{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:conic-gradient(#9b5cff,#ff4fd8,#4cc9ff,#9b5cff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:spin 5s linear infinite;
+}
+
+.mini-disc::after{
+    content:"";
+    width:13px;
+    height:13px;
+    background:#0b0718;
+    border-radius:50%;
+}
+
+.now{
+    flex:1;
+    min-width:0;
+}
+
+.now small{
+    color:#a66cff;
+    letter-spacing:2px;
+    font-size:8px;
+}
+
+.now-title{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.mini-progress{
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:2px;
+    width:0%;
+    background:linear-gradient(90deg,#9b5cff,#ff4fd8,#4cc9ff);
+    border-radius:5px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:50px 20px 90px;
+    text-align:center;
+    color:#5f596c;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+footer strong{
+    color:#8e879e;
+}
+
+/* ================= NO RESULTS ================= */
+
+.no-results{
+    grid-column:1/-1;
+    text-align:center;
+    padding:80px 20px;
+    color:#777184;
+    display:none;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes titleGlow{
+    0%{background-position:0% center}
+    100%{background-position:300% center}
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes corePulse{
+    0%,100%{
+        transform:scale(1);
+        box-shadow:
+            0 0 35px rgba(155,92,255,.7),
+            0 0 90px rgba(155,92,255,.3);
+    }
+    50%{
+        transform:scale(1.08);
+        box-shadow:
+            0 0 55px rgba(155,92,255,.9),
+            0 0 120px rgba(155,92,255,.4);
+    }
+}
+
+@keyframes orbit{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
+
+@keyframes orbitReverse{
+    from{transform:rotate(360deg)}
+    to{transform:rotate(0deg)}
+}
+
+@keyframes scrollPulse{
+    0%,100%{opacity:.3;height:25px}
+    50%{opacity:1;height:40px}
+}
+
+@keyframes wave{
+    from{height:4px}
+    to{height:25px}
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:800px){
+
+    .hero{
+        min-height:100svh;
+    }
+
+    .college-name{
+        font-size:10px;
+        letter-spacing:3px;
+        line-height:1.6;
+    }
+
+    .hero-title{
+        letter-spacing:-3px;
+    }
+
+    .audio-core{
+        margin:45px auto 40px;
+        transform:scale(.82);
+    }
+
+    .section-top{
+        display:block;
+    }
+
+    .section-desc{
+        margin-top:18px;
+    }
+
+    .article-grid{
+        grid-template-columns:1fr;
+    }
+
+    .article-card{
+        min-height:390px;
+    }
+
+    .controls{
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        padding-bottom:4px;
+    }
+
+    .filter{
+        height:48px;
+        white-space:nowrap;
+    }
+
+    .search{
+        min-width:220px;
+    }
+
+    .cursor-glow{
+        display:none;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<canvas id="particles"></canvas>
+<div class="grid-bg"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- =========================
-         HERO HEADER
-    ========================== -->
+<!-- ================= HERO ================= -->
 
-    <header class="hero">
+<section class="hero">
 
-        <div class="hero-content">
+    <div class="hero-inner">
 
-            <div class="logo">
+        <div class="college-name">
+            <span>✦</span>
+            GEORGE COLLEGE OF MANAGEMENT & SCIENCE
+            <span>✦</span>
+        </div>
+
+        <h1 class="hero-title">
+            DIGITAL<br>WALL
+        </h1>
+
+        <div class="hero-subtitle">
+            MAGAZINE
+        </div>
+
+        <div class="hero-tag">
+            Where words come alive.
+        </div>
+
+        <div class="audio-core">
+
+            <div class="orbit one"></div>
+            <div class="orbit two"></div>
+            <div class="orbit three"></div>
+
+            <div class="core-circle">
                 🎧
             </div>
 
-            <h1>
-                Wall Magazine
-            </h1>
-
-            <p>
-                Read. Listen. Explore.
-            </p>
-
-            <div class="hero-badge">
-                ✨ Digital Audio Magazine
-            </div>
-
         </div>
 
-    </header>
+        <a href="#magazine" class="enter-btn">
+            ENTER THE WALL
+            <span class="arrow">↓</span>
+        </a>
+
+    </div>
+
+    <div class="scroll-indicator">
+        EXPLORE
+        <div class="scroll-line"></div>
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         MAIN
-    ========================== -->
+<!-- ================= MAGAZINE ================= -->
 
-    <main class="container">
+<section class="magazine" id="magazine">
 
+    <div class="section-top">
 
-        <!-- STATS -->
+        <div>
+            <div class="section-label">THE DIGITAL COLLECTION</div>
 
-        <div class="stats-card">
-
-            <div class="stats-left">
-
-                <div class="stats-icon">
-                    📚
-                </div>
-
-                <div>
-
-                    <div class="stats-title">
-                        Available Articles
-                    </div>
-
-                    <div class="stats-number">
-                        {{ articles|length }}
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="online">
-
-                <span class="online-dot"></span>
-
-                Digital Library Online
-
-            </div>
-
-        </div>
-
-
-        <!-- SECTION TITLE -->
-
-        <div class="section-header">
-
-            <h2>
-                Explore Our Articles
+            <h2 class="section-title">
+                Explore the Wall.
             </h2>
-
-            <p>
-                Read the articles and listen to their audio versions.
-            </p>
-
         </div>
 
+        <p class="section-desc">
+            Read stories, discover ideas and listen to every article
+            come alive through audio.
+        </p>
 
-        {% if articles %}
-
-
-        <!-- ARTICLES -->
-
-        <div class="articles-grid">
-
-
-            {% for article in articles %}
+    </div>
 
 
-            <article class="article-card">
+    <!-- CONTROLS -->
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="search"
+            class="search"
+            placeholder="⌕  Search an article..."
+            aria-label="Search articles"
+        >
+
+        <button class="filter active" data-filter="all">
+            ALL
+        </button>
+
+        <button class="filter" data-filter="english">
+            ENGLISH
+        </button>
+
+        <button class="filter" data-filter="bengali">
+            বাংলা
+        </button>
+
+        <button class="filter" data-filter="hindi">
+            हिन्दी
+        </button>
+
+    </div>
 
 
-                <!-- ARTICLE HEADER -->
+    <!-- ARTICLES -->
 
-                <div class="article-top">
+    <div class="article-grid" id="articleGrid">
 
-                    <div class="article-icon">
-                        📖
-                    </div>
+        {% for article in articles %}
 
+        <article
+            class="article-card"
+            data-title="{{ article.title|lower }}"
+            data-text="{{ article.text|lower }}"
+        >
 
-                    <div>
-
-                        <h3 class="article-title">
-                            {{ article.title }}
-                        </h3>
-
-                        <span class="article-tag">
-                            Wall Magazine
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ARTICLE TEXT -->
-
-                <div class="article-text">
-
-                    {{ article.text }}
-
-                </div>
-
-
-                <!-- AUDIO -->
-
-                {% if article.audio_exists %}
-
-                <div class="audio-box">
-
-                    <div class="audio-heading">
-
-                        🎧
-                        Listen to this article
-
-                    </div>
-
-
-                    <audio controls preload="none">
-
-                        <source
-                            src="{{ url_for(
-                                'static',
-                                filename='audio/' + article.audio
-                            ) }}"
-                            type="audio/mpeg"
-                        >
-
-                        Your browser does not support audio.
-
-                    </audio>
-
-                </div>
-
-
-                {% else %}
-
-                <div class="no-audio">
-
-                    ⚠️ Audio is not available yet.
-
-                    <br>
-
-                    Please run:
-
-                    <strong>
-                        python generate_audio.py
-                    </strong>
-
-                </div>
-
-                {% endif %}
-
-
-            </article>
-
-
-            {% endfor %}
-
-
-        </div>
-
-
-        {% else %}
-
-
-        <!-- EMPTY -->
-
-        <div class="no-articles">
-
-            <div class="empty-icon">
-                📂
+            <div class="number">
+                {{ "%02d"|format(loop.index) }}
             </div>
 
-            <h3>
-                No Articles Found
+            <div class="language">
+                <span class="language-text">ARTICLE</span>
+            </div>
+
+            <h3 class="article-title">
+                {{ article.title }}
             </h3>
 
-            <p>
-                Please put your DOCX files inside
-                the <strong>uploads</strong> folder.
-            </p>
+            <div class="article-text">
+                {{ article.text }}
+            </div>
 
+            <div class="fade"></div>
+
+            <button class="read-btn">
+                READ FULL ARTICLE ↓
+            </button>
+
+
+            {% if article.audio_exists %}
+
+            <div class="audio-area">
+
+                <button
+                    class="play-btn"
+                    aria-label="Play article"
+                    data-src="{{ url_for('static', filename='audio/' + article.audio) }}"
+                    data-title="{{ article.title }}"
+                >
+                    ▶
+                </button>
+
+                <div class="audio-info">
+
+                    <div class="audio-label">
+                        LISTEN TO THIS ARTICLE
+                    </div>
+
+                    <div class="wave">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i><i></i>
+                    </div>
+
+                </div>
+
+                <div class="audio-time">
+                    0:00
+                </div>
+
+                <audio
+                    class="real-audio"
+                    preload="metadata"
+                ></audio>
+
+            </div>
+
+            {% else %}
+
+            <div class="audio-area">
+                <div style="color:#716b7d;font-size:12px;">
+                    AUDIO VERSION COMING SOON
+                </div>
+            </div>
+
+            {% endif %}
+
+        </article>
+
+        {% endfor %}
+
+        <div class="no-results" id="noResults">
+            ✦ No article found ✦
         </div>
 
+    </div>
 
-        {% endif %}
-
-
-    </main>
+</section>
 
 
-    <!-- FOOTER -->
+<!-- ================= FLOATING PLAYER ================= -->
 
-    <footer>
+<div class="floating-player" id="floatingPlayer">
 
-        🎧 <strong>Digital Wall Magazine</strong>
+    <div class="mini-disc"></div>
 
-        <br>
+    <div class="now">
+        <small>NOW PLAYING</small>
+        <div class="now-title" id="nowTitle">
+            Nothing playing
+        </div>
+    </div>
 
-        Bringing your magazine to life through audio.
+    <button
+        class="play-btn"
+        id="miniPlay"
+        style="width:42px;height:42px;font-size:14px;"
+    >
+        ▶
+    </button>
 
-    </footer>
+    <div class="mini-progress" id="miniProgress"></div>
 
+</div>
+
+
+<footer>
+
+    <strong>GEORGE COLLEGE OF MANAGEMENT & SCIENCE</strong>
+
+    <br><br>
+
+    DIGITAL WALL MAGAZINE · READ · LISTEN · EXPERIENCE
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   PARTICLE MAGIC
+========================================================= */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const particleCount =
+    window.innerWidth < 700 ? 35 : 75;
+
+for(let i=0;i<particleCount;i++){
+
+    particles.push({
+        x:Math.random()*window.innerWidth,
+        y:Math.random()*window.innerHeight,
+        size:Math.random()*1.7+.4,
+        speedX:(Math.random()-.5)*.25,
+        speedY:(Math.random()-.5)*.25,
+        opacity:Math.random()*.65+.1
+    });
+
+}
+
+function animateParticles(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if(p.x<0)p.x=canvas.width;
+        if(p.x>canvas.width)p.x=0;
+        if(p.y<0)p.y=canvas.height;
+        if(p.y>canvas.height)p.y=0;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle =
+            `rgba(190,150,255,${p.opacity})`;
+
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
+
+
+/* =========================================================
+   CURSOR MAGIC
+========================================================= */
+
+const glow = document.getElementById("cursorGlow");
+
+window.addEventListener("mousemove",e=>{
+
+    glow.style.left = e.clientX+"px";
+    glow.style.top = e.clientY+"px";
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const cards =
+    document.querySelectorAll(".article-card");
+
+const observer =
+    new IntersectionObserver(
+        entries=>{
+            entries.forEach(entry=>{
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("show");
+
+                    observer.unobserve(entry.target);
+
+                }
+
+            });
+        },
+        {
+            threshold:.12
+        }
+    );
+
+cards.forEach(card=>observer.observe(card));
+
+
+/* =========================================================
+   LANGUAGE DETECTION
+========================================================= */
+
+function detectLanguage(text){
+
+    const bengali =
+        (text.match(/[\u0980-\u09FF]/g)||[]).length;
+
+    const hindi =
+        (text.match(/[\u0900-\u097F]/g)||[]).length;
+
+    if(bengali > 15)
+        return "bengali";
+
+    if(hindi > 15)
+        return "hindi";
+
+    return "english";
+}
+
+
+cards.forEach(card=>{
+
+    const content =
+        card.dataset.title+" "+card.dataset.text;
+
+    const language =
+        detectLanguage(content);
+
+    card.dataset.lang = language;
+
+    const badge =
+        card.querySelector(".language-text");
+
+    if(language==="bengali")
+        badge.textContent="বাংলা";
+
+    else if(language==="hindi")
+        badge.textContent="हिन्दी";
+
+    else
+        badge.textContent="ENGLISH";
+
+});
+
+
+/* =========================================================
+   READ MORE
+========================================================= */
+
+cards.forEach(card=>{
+
+    const text =
+        card.querySelector(".article-text");
+
+    const button =
+        card.querySelector(".read-btn");
+
+    if(!text || !button) return;
+
+    if(text.scrollHeight <= 180){
+
+        button.style.display="none";
+
+        const fade =
+            card.querySelector(".fade");
+
+        if(fade)
+            fade.style.display="none";
+
+        return;
+    }
+
+    button.addEventListener("click",()=>{
+
+        text.classList.toggle("expanded");
+
+        if(text.classList.contains("expanded")){
+
+            button.textContent =
+                "SHOW LESS ↑";
+
+        }else{
+
+            button.textContent =
+                "READ FULL ARTICLE ↓";
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   SEARCH + LANGUAGE FILTER
+========================================================= */
+
+const search =
+    document.getElementById("search");
+
+const filters =
+    document.querySelectorAll(".filter");
+
+let currentFilter="all";
+
+function filterArticles(){
+
+    const query =
+        search.value.toLowerCase().trim();
+
+    let visible=0;
+
+    cards.forEach(card=>{
+
+        const matchesSearch =
+            card.dataset.title.includes(query) ||
+            card.dataset.text.includes(query);
+
+        const matchesLanguage =
+            currentFilter==="all" ||
+            card.dataset.lang===currentFilter;
+
+        if(matchesSearch && matchesLanguage){
+
+            card.style.display="block";
+            visible++;
+
+        }else{
+
+            card.style.display="none";
+
+        }
+
+    });
+
+    document.getElementById("noResults").style.display =
+        visible===0 ? "block" : "none";
+
+}
+
+search.addEventListener("input",filterArticles);
+
+filters.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        filters.forEach(b=>b.classList.remove("active"));
+
+        button.classList.add("active");
+
+        currentFilter =
+            button.dataset.filter;
+
+        filterArticles();
+
+    });
+
+});
+
+
+/* =========================================================
+   3D CARD TILT
+========================================================= */
+
+if(window.innerWidth > 900){
+
+    cards.forEach(card=>{
+
+        card.addEventListener("mousemove",e=>{
+
+            const rect =
+                card.getBoundingClientRect();
+
+            const x =
+                e.clientX-rect.left;
+
+            const y =
+                e.clientY-rect.top;
+
+            const rotateY =
+                ((x/rect.width)-.5)*7;
+
+            const rotateX =
+                ((y/rect.height)-.5)*-7;
+
+            card.style.transform =
+                `perspective(900px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)
+                 translateY(-5px)`;
+
+        });
+
+        card.addEventListener("mouseleave",()=>{
+
+            card.style.transform =
+                "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   AUDIO ENGINE
+========================================================= */
+
+let currentAudio=null;
+let currentButton=null;
+
+const floatingPlayer =
+    document.getElementById("floatingPlayer");
+
+const nowTitle =
+    document.getElementById("nowTitle");
+
+const miniPlay =
+    document.getElementById("miniPlay");
+
+const miniProgress =
+    document.getElementById("miniProgress");
+
+
+cards.forEach(card=>{
+
+    const button =
+        card.querySelector(".play-btn");
+
+    const audio =
+        card.querySelector(".real-audio");
+
+    if(!button || !audio) return;
+
+    const source =
+        button.dataset.src;
+
+    audio.src=source;
+
+    const timeDisplay =
+        card.querySelector(".audio-time");
+
+    const wave =
+        card.querySelector(".wave");
+
+
+    button.addEventListener("click",async()=>{
+
+        if(currentAudio &&
+           currentAudio!==audio){
+
+            currentAudio.pause();
+
+            if(currentButton){
+
+                currentButton.textContent="▶";
+
+                const oldWave =
+                    currentButton
+                    .closest(".audio-area")
+                    ?.querySelector(".wave");
+
+                if(oldWave)
+                    oldWave.classList.remove("playing");
+
+            }
+
+        }
+
+
+        currentAudio=audio;
+        currentButton=button;
+
+        nowTitle.textContent =
+            button.dataset.title;
+
+        floatingPlayer.classList.add("active");
+
+
+        if(audio.paused){
+
+            try{
+
+                await audio.play();
+
+                button.textContent="❚❚";
+
+                wave.classList.add("playing");
+
+            }catch(error){
+
+                console.log("Audio error:",error);
+
+            }
+
+        }else{
+
+            audio.pause();
+
+            button.textContent="▶";
+
+            wave.classList.remove("playing");
+
+        }
+
+    });
+
+
+    audio.addEventListener("timeupdate",()=>{
+
+        if(!audio.duration) return;
+
+        const percentage =
+            (audio.currentTime/audio.duration)*100;
+
+        miniProgress.style.width =
+            percentage+"%";
+
+        const minutes =
+            Math.floor(audio.currentTime/60);
+
+        const seconds =
+            Math.floor(audio.currentTime%60)
+            .toString()
+            .padStart(2,"0");
+
+        timeDisplay.textContent =
+            `${minutes}:${seconds}`;
+
+    });
+
+
+    audio.addEventListener("ended",()=>{
+
+        button.textContent="▶";
+
+        wave.classList.remove("playing");
+
+        miniProgress.style.width="0%";
+
+        floatingPlayer.classList.remove("active");
+
+    });
+
+});
+
+
+/* =========================================================
+   MINI PLAYER
+========================================================= */
+
+miniPlay.addEventListener("click",()=>{
+
+    if(!currentAudio || !currentButton)
+        return;
+
+    if(currentAudio.paused){
+
+        currentAudio.play();
+
+        currentButton.textContent="❚❚";
+
+        const wave =
+            currentButton
+            .closest(".audio-area")
+            ?.querySelector(".wave");
+
+        if(wave)
+            wave.classList.add("playing");
+
+        miniPlay.textContent="❚❚";
+
+    }else{
+
+        currentAudio.pause();
+
+        currentButton.textContent="▶";
+
+        const wave =
+            currentButton
+            .closest(".audio-area")
+            ?.querySelector(".wave");
+
+        if(wave)
+            wave.classList.remove("playing");
+
+        miniPlay.textContent="▶";
+
+    }
+
+});
+
+
+/* =========================================================
+   KEEP MINI PLAYER BUTTON IN SYNC
+========================================================= */
+
+setInterval(()=>{
+
+    if(currentAudio){
+
+        miniPlay.textContent =
+            currentAudio.paused ? "▶" : "❚❚";
+
+    }
+
+},200);
+
+
+/* =========================================================
+   SMOOTH HERO ENTRY
+========================================================= */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document.body.classList.add("loaded");
+
+    },300);
+
+});
+
+</script>
 
 </body>
-
 </html>
