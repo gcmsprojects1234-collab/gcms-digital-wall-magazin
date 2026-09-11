@@ -37,51 +37,70 @@ def safe_filename(filename):
 
 
 def get_all_articles():
-
     articles = []
 
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     os.makedirs(AUDIO_FOLDER, exist_ok=True)
 
+    # Get all available MP3 files
+    audio_files = {}
+    for audio_file in os.listdir(AUDIO_FOLDER):
+        if audio_file.lower().endswith(".mp3"):
+            base_name = os.path.splitext(audio_file)[0].lower()
+            audio_files[base_name] = audio_file
+
     for filename in os.listdir(UPLOAD_FOLDER):
 
         if filename.lower().endswith(".docx"):
 
-            file_path = os.path.join(
-                UPLOAD_FOLDER,
-                filename
-            )
+            file_path = os.path.join(UPLOAD_FOLDER, filename)
 
             try:
-
                 text = read_docx(file_path)
 
-                audio_name = safe_filename(filename) + ".mp3"
+                title = os.path.splitext(filename)[0]
 
-                audio_path = os.path.join(
-                    AUDIO_FOLDER,
-                    audio_name
-                )
+                # Generate expected audio filename
+                expected_audio = safe_filename(filename)
+                expected_base = expected_audio.lower()
 
-                # Check whether audio exists
-                audio_exists = os.path.exists(audio_path)
+                # First try exact match
+                audio_name = audio_files.get(expected_base)
+
+                # If exact match is not found, try normalized matching
+                if not audio_name:
+                    normalized_expected = re.sub(
+                        r'[^a-z0-9]+',
+                        '_',
+                        expected_base
+                    ).strip('_')
+
+                    for existing_base, existing_file in audio_files.items():
+
+                        normalized_existing = re.sub(
+                            r'[^a-z0-9]+',
+                            '_',
+                            existing_base
+                        ).strip('_')
+
+                        if normalized_existing == normalized_expected:
+                            audio_name = existing_file
+                            break
+
+                audio_exists = audio_name is not None
 
                 articles.append({
-                    "title": os.path.splitext(filename)[0],
+                    "title": title,
                     "filename": filename,
                     "text": text,
-                    "audio": audio_name,
+                    "audio": audio_name if audio_name else expected_audio + ".mp3",
                     "audio_exists": audio_exists
                 })
 
             except Exception as e:
-
-                print(
-                    f"Error reading {filename}: {e}"
-                )
+                print(f"Error reading {filename}: {e}")
 
     return articles
-
 
 @app.route("/")
 def home():
